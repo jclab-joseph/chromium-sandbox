@@ -119,10 +119,9 @@ bool SetuidSandboxHost::IsDisabledViaEnvironment() {
 
 base::FilePath SetuidSandboxHost::GetSandboxBinaryPath() {
   base::FilePath sandbox_binary;
-  base::FilePath exe_path;
-  if (base::PathService::Get(base::FILE_EXE, &exe_path)) {
-    base::FilePath sandbox_candidate =
-        exe_path.InsertBeforeExtensionASCII("-sandbox");
+  base::FilePath exe_dir;
+  if (base::PathService::Get(base::DIR_EXE, &exe_dir)) {
+    base::FilePath sandbox_candidate = exe_dir.AppendASCII("chrome-sandbox");
     if (base::PathExists(sandbox_candidate))
       sandbox_binary = sandbox_candidate;
   }
